@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NightFast — Nighttime Nutrition Tracking App for iOS</title>
-    <meta name="description" content="NightFast is the first nutrition app designed for night shift workers, new parents, and night owls. Track your nighttime eating with HealthKit integration.">
-    <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID">
-    <link rel="canonical" href="https://nightfast.app">
+    <title>NightFast — Night Shift Nutrition</title>
+    <meta name="description" content="Your Intelligent Nighttime Nutrition Companion. The first app designed specifically for people who eat during the night.">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://apps.apple.com/app/nightfast">
     <style>
         :root {
             --bg-primary: #0D0D1A;
             --bg-secondary: #1A1A2E;
-            --bg-card: #16162A;
             --accent-primary: #9D4EDD;
             --accent-secondary: #F4A261;
             --success: #2A9D8F;
             --text-primary: #E8E8E8;
             --text-secondary: #A0A0A0;
-            --border: #2A2A4A;
+            --info-bg: rgba(157, 78, 221, 0.1);
         }
         
         * {
@@ -31,7 +29,7 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.7;
@@ -39,789 +37,510 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 60px 20px;
         }
         
-        /* Navigation */
-        nav {
-            position: sticky;
-            top: 0;
-            background: rgba(13, 13, 26, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100;
-            padding: 15px 0;
-        }
-        
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
         }
         
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.4rem;
-            font-weight: 700;
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        h1 {
             color: var(--text-primary);
-            text-decoration: none;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
         
-        .logo-icon {
-            font-size: 1.6rem;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-        }
-        
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        
-        .nav-links a:hover {
+        .tagline {
             color: var(--accent-primary);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
         
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 80px 20px 60px;
-        }
-        
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(157, 78, 221, 0.15);
-            border: 1px solid rgba(157, 78, 221, 0.3);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: var(--accent-primary);
-            margin-bottom: 25px;
-        }
-        
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #fff 0%, #9D4EDD 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero .tagline {
-            font-size: 1.3rem;
+        .subtitle {
             color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 35px;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .app-store-badge {
-            margin-bottom: 30px;
+            margin: 40px 0;
         }
         
         .app-store-badge a {
             display: inline-block;
-            transition: transform 0.2s, opacity 0.2s;
+            transition: transform 0.2s;
         }
         
         .app-store-badge a:hover {
             transform: scale(1.05);
-            opacity: 0.9;
         }
         
         .app-store-badge img {
-            height: 54px;
+            height: 60px;
         }
         
-        /* Section Styles */
-        section {
-            padding: 60px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .section-title h2 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-        
-        .section-title p {
+        .ideal-for {
             color: var(--text-secondary);
-            font-size: 1rem;
-        }
-        
-        /* Features Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 25px;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-primary);
-        }
-        
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-        
-        .feature-card p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-        
-        /* HealthKit Section - IMPORTANT FOR APP STORE */
-        .healthkit-section {
-            background: linear-gradient(135deg, rgba(157, 78, 221, 0.1) 0%, rgba(42, 157, 143, 0.1) 100%);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 40px 0;
-        }
-        
-        .healthkit-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        
-        .healthkit-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #FF2D55, #FF6B8A);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        
-        .healthkit-header h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-        
-        .healthkit-header p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        .healthkit-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        
-        .healthkit-feature {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            padding: 20px;
-        }
-        
-        .healthkit-feature h4 {
             font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--accent-primary);
-        }
-        
-        .healthkit-feature ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .healthkit-feature li {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            padding: 5px 0;
-            padding-left: 20px;
-            position: relative;
-        }
-        
-        .healthkit-feature li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--success);
-        }
-        
-        /* Subscription Section - REQUIRED FOR APP STORE */
-        .subscription-section {
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            padding: 50px 30px;
-            margin: 40px 0;
-        }
-        
-        .subscription-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+            font-style: italic;
             margin-top: 30px;
         }
         
-        .subscription-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+        h2 {
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background-color: var(--bg-secondary);
             border-radius: 16px;
             padding: 30px;
-            position: relative;
-            transition: border-color 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         
-        .subscription-card.popular {
-            border-color: var(--accent-primary);
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(157, 78, 221, 0.2);
         }
         
-        .subscription-card.popular::before {
-            content: "MOST POPULAR";
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent-primary);
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 5px 15px;
-            border-radius: 20px;
-        }
-        
-        .subscription-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .subscription-price {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--accent-primary);
-        }
-        
-        .subscription-price span {
-            font-size: 0.9rem;
-            font-weight: 400;
-            color: var(--text-secondary);
-        }
-        
-        .subscription-duration {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+        .feature-icon {
+            font-size: 3rem;
             margin-bottom: 20px;
         }
         
-        .subscription-features {
+        .feature-card h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .health-section {
+            background-color: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 50px;
+            margin-top: 80px;
+        }
+        
+        .health-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .health-box {
+            background-color: var(--bg-primary);
+            border-radius: 16px;
+            padding: 30px;
+            border-left: 4px solid var(--accent-primary);
+        }
+        
+        .health-box h4 {
+            color: var(--accent-primary);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .health-box ul {
             list-style: none;
             padding: 0;
-            margin-bottom: 20px;
         }
         
-        .subscription-features li {
-            font-size: 0.9rem;
+        .health-box li {
             color: var(--text-secondary);
             padding: 8px 0;
             padding-left: 25px;
             position: relative;
         }
         
-        .subscription-features li::before {
-            content: "✓";
+        .health-box li:before {
+            content: "•";
+            color: var(--accent-primary);
+            font-weight: bold;
             position: absolute;
             left: 0;
+        }
+        
+        .privacy-note {
+            background-color: var(--info-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            border-left: 4px solid var(--success);
+        }
+        
+        .privacy-note h4 {
+            color: var(--success);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .privacy-note ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .privacy-note li {
+            color: var(--text-secondary);
+            padding: 5px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .privacy-note li:before {
+            content: "✓";
             color: var(--success);
             font-weight: bold;
+            position: absolute;
+            left: 0;
         }
         
-        /* Auto-Renewal Notice - REQUIRED */
-        .renewal-notice {
-            background: rgba(244, 162, 97, 0.1);
-            border: 1px solid rgba(244, 162, 97, 0.3);
-            border-radius: 12px;
-            padding: 20px;
+        .info-badge {
+            background-color: var(--info-bg);
+            border-radius: 8px;
+            padding: 15px 20px;
             margin-top: 30px;
-        }
-        
-        .renewal-notice h4 {
-            color: var(--accent-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-        }
-        
-        .renewal-notice p, .renewal-notice li {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            text-align: center;
         }
         
-        .renewal-notice ul {
-            list-style: disc;
-            padding-left: 20px;
-        }
-        
-        /* Legal Links Section */
         .legal-section {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 30px;
-            margin: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+            padding: 50px 20px;
+            background-color: var(--bg-secondary);
+            border-radius: 20px;
+        }
+        
+        .legal-section h2 {
+            margin-bottom: 30px;
         }
         
         .legal-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
         }
         
         .legal-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--bg-secondary);
-            padding: 15px 20px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: background 0.2s, transform 0.2s;
-        }
-        
-        .legal-link:hover {
-            background: rgba(157, 78, 221, 0.2);
-            transform: translateX(5px);
-        }
-        
-        .legal-link .icon {
-            font-size: 1.3rem;
-        }
-        
-        .legal-link span {
-            font-weight: 500;
-        }
-        
-        /* Support Section */
-        .support-section {
-            text-align: center;
-            padding: 50px 20px;
-        }
-        
-        .support-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 30px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .support-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-        
-        .support-card p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-        
-        .support-email {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: var(--accent-primary);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 10px;
+            background-color: var(--bg-primary);
+            color: var(--accent-primary);
             text-decoration: none;
-            font-weight: 600;
-            transition: background 0.2s;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 2px solid transparent;
         }
         
-        .support-email:hover {
-            background: #8B3ECD;
+        .legal-link:hover {
+            background-color: var(--accent-primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(157, 78, 221, 0.3);
         }
         
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 40px 20px;
+        .legal-link span {
+            font-size: 1.5rem;
+        }
+        
+        .support-box {
+            background-color: var(--bg-primary);
+            border-radius: 16px;
+            padding: 30px;
             margin-top: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+        .support-box h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+        
+        .support-box p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        
+        .support-box a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .support-box a:hover {
+            text-decoration: underline;
+        }
+        
+        .response-time {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--bg-secondary);
             text-align: center;
         }
         
         .footer-links {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
         }
         
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.9rem;
-            transition: color 0.2s;
         }
         
         .footer-links a:hover {
             color: var(--accent-primary);
         }
         
-        .footer-copyright {
+        .copyright {
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
         }
         
-        /* Responsive */
+        .disclaimer {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg-secondary);
+            border-radius: 12px;
+        }
+        
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero .tagline {
-                font-size: 1.1rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .healthkit-section {
-                padding: 25px;
-            }
-            
-            .subscription-section {
-                padding: 30px 20px;
-            }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .tagline { font-size: 1.2rem; }
+            .logo { font-size: 4rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .health-grid { grid-template-columns: 1fr; }
+            .health-section { padding: 30px 20px; }
+            .legal-links { flex-direction: column; align-items: center; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <a href="#" class="logo">
-                <span class="logo-icon">🌙</span>
-                <span>NightFast</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#healthkit">Health Integration</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#support">Support</a></li>
-                <li><a href="privacy.html">Privacy</a></li>
-                <li><a href="terms.html">Terms</a></li>
-            </ul>
-        </div>
-    </nav>
-
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-badge">
-                <span>🍎</span>
-                <span>Available on iOS</span>
+    <div class="hero">
+        <div class="logo">🌙</div>
+        <h1>NightFast</h1>
+        <p class="tagline">Your Intelligent Nighttime Nutrition Companion</p>
+        <p class="subtitle">The first app designed specifically for people who eat during the night.</p>
+        
+        <div class="app-store-badge">
+            <a href="https://apps.apple.com/app/nightfast" target="_blank" rel="noopener">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+            </a>
+        </div>
+        
+        <p class="ideal-for">Perfect for night shift workers, new parents, gamers, and night owls</p>
+    </div>
+    
+    <!-- Features Section -->
+    <div class="container">
+        <h2>Features</h2>
+        <p class="section-subtitle">Everything you need to track and optimize your nighttime nutrition</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⏰</div>
+                <h3>Smart Night Schedule</h3>
+                <p>Create custom meal schedules adapted to your unique nighttime routine with gentle reminders.</p>
             </div>
-            <h1>NightFast</h1>
-            <p class="tagline">Your Intelligent Nighttime Nutrition Companion. The first app designed specifically for people who eat during the night.</p>
             
-            <div class="app-store-badge">
-                <a href="https://apps.apple.com/app/nightfast" target="_blank" rel="noopener noreferrer">
-                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download NightFast on the App Store">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Nutrition Tracking</h3>
+                <p>Monitor calories, macros, and nutrition during night hours with beautiful insights.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">✨</div>
+                <h3>AI Recommendations</h3>
+                <p>Get personalized food suggestions based on your eating patterns and preferences.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <h3>Quick Logging</h3>
+                <p>Log food in seconds with barcode scanning, photo recognition, or voice commands.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🍳</div>
+                <h3>Night-Friendly Recipes</h3>
+                <p>Browse 100+ recipes designed for nighttime eating that won't disrupt your rest.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⌚</div>
+                <h3>Apple Watch App</h3>
+                <p>Log food and check progress right from your wrist with the companion Watch app.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Health Integration Section -->
+    <div class="container">
+        <div class="health-section">
+            <h2 style="margin-top: 0;">❤️ Apple Health Integration</h2>
+            <p class="section-subtitle" style="margin-bottom: 30px;">NightFast integrates with Apple HealthKit to provide comprehensive health insights</p>
+            
+            <div class="health-grid">
+                <div class="health-box">
+                    <h4>📥 Data We Read (with your permission)</h4>
+                    <ul>
+                        <li>Sleep analysis data</li>
+                        <li>Sleep duration and quality</li>
+                        <li>Sleep schedule patterns</li>
+                    </ul>
+                </div>
+                
+                <div class="health-box">
+                    <h4>📤 Data We Write (with your permission)</h4>
+                    <ul>
+                        <li>Dietary energy (calories)</li>
+                        <li>Protein intake</li>
+                        <li>Carbohydrate intake</li>
+                        <li>Fat intake</li>
+                        <li>Caffeine consumption</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="privacy-note">
+                <h4>🔒 Your Privacy</h4>
+                <ul>
+                    <li>All Health data stays on your device</li>
+                    <li>We never access your Health data on our servers</li>
+                    <li>You control all permissions</li>
+                    <li>Revoke access anytime in Settings</li>
+                </ul>
+            </div>
+            
+            <div class="info-badge">
+                ⚠️ HealthKit integration is optional. NightFast works fully without Health access. You can enable or disable Health features at any time in the app's Settings.
+            </div>
+        </div>
+    </div>
+    
+    <!-- Legal & Policies Section -->
+    <div class="container">
+        <div class="legal-section">
+            <h2>Legal & Policies</h2>
+            
+            <div class="legal-links">
+                <a href="privacy.html" class="legal-link">
+                    <span>🔒</span>
+                    <span>Privacy Policy</span>
+                </a>
+                <a href="terms.html" class="legal-link">
+                    <span>📜</span>
+                    <span>Terms of Use (EULA)</span>
+                </a>
+                <a href="support.html" class="legal-link">
+                    <span>💬</span>
+                    <span>Support Center</span>
                 </a>
             </div>
             
-            <p style="color: var(--text-secondary); font-size: 0.9rem;">Perfect for night shift workers, new parents, gamers, and night owls</p>
+            <div class="support-box">
+                <h3>Need Help?</h3>
+                <p>Our support team is here to assist you with any questions about NightFast.</p>
+                <p><a href="mailto:cybertec44@yahoo.com">📧 cybertec44@yahoo.com</a></p>
+                <p class="response-time">We typically respond within 24-48 hours</p>
+            </div>
         </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Features</h2>
-                <p>Everything you need to track and optimize your nighttime nutrition</p>
+    </div>
+    
+    <!-- Footer -->
+    <div class="container">
+        <div class="footer">
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Use (EULA)</a>
+                <a href="support.html">Support</a>
+                <a href="mailto:cybertec44@yahoo.com">Contact</a>
             </div>
             
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">⏰</div>
-                    <h3>Smart Night Schedule</h3>
-                    <p>Create custom meal schedules adapted to your unique nighttime routine with gentle reminders.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Nutrition Tracking</h3>
-                    <p>Monitor calories, macros, and nutrition during night hours with beautiful insights.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">✨</div>
-                    <h3>AI Recommendations</h3>
-                    <p>Get personalized food suggestions based on your eating patterns and preferences.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📷</div>
-                    <h3>Quick Logging</h3>
-                    <p>Log food in seconds with barcode scanning, photo recognition, or voice commands.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🍳</div>
-                    <h3>Night-Friendly Recipes</h3>
-                    <p>Browse 100+ recipes designed for nighttime eating that won't disrupt your rest.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">⌚</div>
-                    <h3>Apple Watch App</h3>
-                    <p>Log food and check progress right from your wrist with the companion Watch app.</p>
-                </div>
+            <p class="copyright">&copy; 2025 NightFast. All rights reserved.</p>
+            
+            <div class="disclaimer">
+                ⚠️ NightFast is not a medical device and is not intended to diagnose, treat, cure, or prevent any disease.
             </div>
         </div>
-    </section>
-
-    <!-- HealthKit Integration Section - REQUIRED FOR GUIDELINE 2.5.1 -->
-    <section id="healthkit">
-        <div class="container">
-            <div class="healthkit-section">
-                <div class="healthkit-header">
-                    <div class="healthkit-icon">❤️</div>
-                    <div>
-                        <h2>Apple Health Integration</h2>
-                        <p>NightFast integrates with Apple HealthKit to provide comprehensive health insights</p>
-                    </div>
-                </div>
-                
-                <div class="healthkit-features">
-                    <div class="healthkit-feature">
-                        <h4>📥 Data We Read (with your permission)</h4>
-                        <ul>
-                            <li>Sleep analysis data</li>
-                            <li>Sleep duration and quality</li>
-                            <li>Sleep schedule patterns</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="healthkit-feature">
-                        <h4>📤 Data We Write (with your permission)</h4>
-                        <ul>
-                            <li>Dietary energy (calories)</li>
-                            <li>Protein intake</li>
-                            <li>Carbohydrate intake</li>
-                            <li>Fat intake</li>
-                            <li>Caffeine consumption</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="healthkit-feature">
-                        <h4>🔒 Your Privacy</h4>
-                        <ul>
-                            <li>All Health data stays on your device</li>
-                            <li>We never access your Health data on our servers</li>
-                            <li>You control all permissions</li>
-                            <li>Revoke access anytime in Settings</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <p style="margin-top: 25px; font-size: 0.85rem; color: var(--text-secondary); text-align: center;">
-                    HealthKit integration is optional. NightFast works fully without Health access. You can enable or disable Health features at any time in the app's Settings.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Subscription Section - REQUIRED FOR GUIDELINE 3.1.2 -->
-    <section id="pricing">
-        <div class="container">
-            <div class="subscription-section">
-                <div class="section-title">
-                    <h2>Subscription Plans</h2>
-                    <p>Choose the plan that works best for you</p>
-                </div>
-                
-                <div class="subscription-grid">
-                    <!-- Free Plan -->
-                    <div class="subscription-card">
-                        <div class="subscription-name">NightFast Free</div>
-                        <div class="subscription-price">$0</div>
-                        <div class="subscription-duration">Free forever</div>
-                        <ul class="subscription-features">
-                            <li>20 food logs per day</li>
-                            <li>Basic nutrition tracking</li>
-                            <li>Manual food entry</li>
-                            <li>Daily summaries</li>
-                            <li>1 meal schedule</li>
-                        </ul>
-                    </div>
-                    
-                    <!-- NightFast Pro Monthly -->
-                    <div class="subscription-card popular">
-                        <div class="subscription-name">NightFast Pro Monthly</div>
-                        <div class="subscription-price">$9.99 <span>/ month</span></div>
-                        <div class="subscription-duration">Monthly auto-renewable subscription</div>
-                        <ul class="subscription-features">
-                            <li>Unlimited food logging</li>
-                            <li>All recipes unlocked</li>
-                            <li>Custom meal schedules</li>
-                            <li>Advanced meal planning</li>
-                            <li>Priority support</li>
-                        </ul>
-                    </div>
-                    
-                    <!-- NightFast Pro Yearly -->
-                    <div class="subscription-card">
-                        <div class="subscription-name">NightFast Pro Yearly</div>
-                        <div class="subscription-price">$79.99 <span>/ year</span></div>
-                        <div class="subscription-duration">Yearly auto-renewable subscription</div>
-                        <ul class="subscription-features">
-                            <li>Unlimited food logging</li>
-                            <li>All recipes unlocked</li>
-                            <li>Custom meal schedules</li>
-                            <li>Advanced meal planning</li>
-                            <li>Priority support</li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Lifetime -->
-                    <div class="subscription-card">
-                        <div class="badge">Best Value</div>
-                        <div class="subscription-name">Lifetime</div>
-                        <div class="subscription-price">$149.99</div>
-                        <div class="subscription-duration">One-time purchase</div>
-                        <ul class="subscription-features">
-                            <li>Permanent Pro access</li>
-                            <li>All current features</li>
-                            <li>All future updates</li>
-                            <li>Never pay again</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Auto-Renewal Notice - REQUIRED -->
-                <div class="renewal-notice">
-                    <h4>⚠️ Important Subscription Information</h4>
-                    <ul>
-                        <li><strong>Auto-Renewal:</strong> Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current billing period.</li>
-                        <li><strong>Billing:</strong> Your Apple ID account will be charged for renewal within 24 hours prior to the end of the current period.</li>
-                        <li><strong>Management:</strong> You can manage or cancel your subscription at any time in your Apple ID Account Settings.</li>
-                        <li><strong>Free Trial:</strong> Any unused portion of a free trial period will be forfeited when you purchase a subscription.</li>
-                    </ul>
-                    <p style="margin-top: 15px;">
-                        By subscribing, you agree to our <a href="terms.html" style="color: var(--accent-primary);">Terms of Use (EULA)</a> and <a href="privacy.html" style="color: var(--accent-primary);">Privacy Policy</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Legal Links Section - REQUIRED FOR APP STORE -->
-    <section id="legal">
-        <div class="container">
-            <div class="legal-section">
-                <div class="section-title" style="margin-bottom: 25px;">
-                    <h2>Legal & Policies</h2>
-                </div>
-                
-                <div class="legal-links">
-                    <a href="privacy.html" class="legal-link">
-                        <span class="icon">🔒</span>
-                        <span>Privacy Policy</span>
-                    </a>
-                    <a href="terms.html" class="legal-link">
-                        <span class="icon">📜</span>
-                        <span>Terms of Use (EULA)</span>
-                    </a>
-                    <a href="support.html" class="legal-link">
-                        <span class="icon">💬</span>
-                        <span>Support Center</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Support Section -->
-    <section id="support">
-        <div class="container">
-            <div class="support-section">
-                <div class="support-card">
-                    <h3>Need Help?</h3>
-                    <p>Our support team is here to assist you with any questions about NightFast.</p>
-                    <a href="mailto:cybertec44@yahoo.com" class="support-email">
-                        <span>📧</span>
-                        <span>cybertec44@yahoo.com</span>
-                    </a>
-                    <p style="margin-top: 15px; font-size: 0.85rem;">We typically respond within 24-48 hours</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Use (EULA)</a>
-                    <a href="support.html">Support</a>
-                    <a href="mailto:cybertec44@yahoo.com">Contact</a>
-                </div>
-                <p class="footer-copyright">© 2025 NightFast. All rights reserved.</p>
-                <p style="font-size: 0.8rem; color: var(--text-secondary);">
-                    NightFast is not a medical device and is not intended to diagnose, treat, cure, or prevent any disease.
-                </p>
-            </div>
-        </div>
-    </footer>
+    </div>
 </body>
 </html>
